@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/robatussum/ccb/backend/pkg/ws"
+	"github.com/robatussum/ccb/backend/ws"
 )
 
 func serveWs(pool *ws.Pool, w http.ResponseWriter, r *http.Request) {
