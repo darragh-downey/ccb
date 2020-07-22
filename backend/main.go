@@ -4,19 +4,19 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/robatussum/ccb/backend/pkg/websocket"
+	"github.com/robatussum/ccb/backend/pkg/ws"
 )
 
-func serveWs(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Websocket endpoint hit!")
-	conn, err := websocket.Upgrade(w, r)
+func serveWs(pool *ws.Pool, w http.ResponseWriter, r *http.Request) {
+	fmt.Println("ws endpoint hit!")
+	conn, err := ws.Upgrade(w, r)
 	if err != nil {
 		fmt.Fprintf(w, "%+V\n", err)
 	}
 
-	client := &websocket.Client{
+	client := &ws.Client{
 		Conn: conn,
-		Pool: websocket.Pool,
+		Pool: ws.Pool,
 	}
 
 	pool.Register <- client
@@ -24,7 +24,7 @@ func serveWs(pool *websocket.Pool, w http.ResponseWriter, r *http.Request) {
 }
 
 func setupRoutes() {
-	pool := websocket.NewPool()
+	pool := ws.NewPool()
 	go pool.Start()
 
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
