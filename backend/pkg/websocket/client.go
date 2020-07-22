@@ -1,10 +1,8 @@
-package websocket
+package pkg/websocket
 
 import (
 	"fmt"
 	"log"
-
-	"github.com/gorilla/websocket"
 )
 
 // Client struct representing a websocket client
